@@ -1,0 +1,18 @@
+<!--similar to new entry template -->
+{% extends "learning_logs/base.html" %}
+
+{%block content%}
+
+    <p><a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a></p>
+
+    <p>Edit entry:</p>
+
+    <!--sends form to edit_entry function as POST
+     entry.id matches entry object to correct id in view-->
+    <form action="{% url 'learning_logs:edit_entry' entry.id %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="submit">Save changes</button>
+    </form>
+
+{% endblock content %}

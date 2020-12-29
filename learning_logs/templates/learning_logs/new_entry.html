@@ -1,0 +1,24 @@
+<!--Very similar to new_topic template -->
+{% extends "learning_logs/base.html" %}
+
+{% block content %}
+
+<!-- show Topic name with link attached to it to main page for topic-->
+    <p><a href="{% url 'learning_logs:topic' topic.id %}"> {{topic}}</a></p>
+
+
+    <p>Add a new entry:</p>
+
+    <!-- Define HTML form, send submitted data to new_entry function as POST
+    topic id value is included to match entry with topic-->
+    <form action="{% url 'learning_logs:new_entry' topic.id %}" method="post">
+
+        <!--cross site request forgery -->
+        {% csrf_token %}
+
+        <!-- text box for entry-->
+        {{ form.as_p }}
+        <button name="submit">Add entry</button>
+    </form>
+
+{% endblock content %}

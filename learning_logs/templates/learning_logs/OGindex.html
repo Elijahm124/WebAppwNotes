@@ -1,0 +1,21 @@
+<!-- ORIGINAL TEMPLATE NOT IN USE-->
+
+<!-- This is the template
+It is what is generated when response is done by view
+view function makes this visible to matched URL-->
+
+<!-- always make sure that html files have .html,
+html cuz deployed to web-->
+
+<!-- extends tells django to inherit from specific parent template-->
+{% extends "learning_logs/base.html" %}
+
+
+<!-- define content previously defined in parent template
+   everything that's new in file goes between content block -->
+{% block content %}
+
+<p>Learning Log helps you keep track of your learning.
+for any topic you're learning about</p>
+
+{% endblock content %}

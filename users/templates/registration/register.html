@@ -1,0 +1,21 @@
+{% extends "learning_logs/base.html" %}
+
+{% block content %}
+
+    <!--send form to register URL/view
+    send form as post when user submits data then hits Register button-->
+    <form method="post" action="{% url 'users:register' %}">
+        {% csrf_token %}
+
+        <!--display form-->
+        {{ form.as_p }}
+
+        <button name="submit">Register</button>
+
+        <!--after that occurs take us to home page
+        idk why we have to redirect back to home page in 2 separate files-->
+        <input type="hidden" name="next" value="{% url 'learning_logs:index' %}" />
+    </form>
+
+{% endblock content %}
+

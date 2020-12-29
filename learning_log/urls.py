@@ -18,16 +18,27 @@ Including another URLconf
 #manage URLs for admin site
 from django.contrib import admin
 
-#path module maps URLs to views
+#path module mathcess URLs to views
 from django.urls import path, include
 
 #list of URLs from all apps in the project
 urlpatterns = [
 
     #admin.site.urls defines all URLs that can be requested from admin site
+    #this is the path for the admin site
+    #When URL is followed by admin/ brings us to admin site
     path('admin/', admin.site.urls),
 
+    #URLs for users app
+    #users app contains all stuff working with users(registration, authorization)
+    #users app URL is base + users/
+    #imports/calls users app (users.urls)
+    path('users/', include("users.urls")),
+
     #URLs for learning_logs app
-    #specifically import module/file learning_logs.urls
+    #imports module/file learning_logs.urls
+    #base URL calls learning_logs.urls
     path('', include("learning_logs.urls")),
+
+
 ]

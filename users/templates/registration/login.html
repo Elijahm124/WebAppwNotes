@@ -1,0 +1,36 @@
+{% extends "learning_logs/base.html" %}
+
+<!--import bootstrap,
+must be done for every file that uses bootstrap-->
+{% load bootstrap4 %}
+
+<!--content within page header block
+h2 means its a second level header, little smaller than h1-->
+{% block page_header %}
+    <h2>Log in to your account.</h2>
+{% endblock page_header %}
+
+<!--deleted if form.errors
+bootstrap manages form errors automatically-->
+
+<!--content aspect of page-->
+{% block content %}
+
+<!--class=form provides an inherited login template from bootstrap-->
+    <form method="post" action="{% url 'users:login' %}" class="form">
+        {% csrf_token %}
+
+        <!--replaces form.as_p
+        applies bootstrap elements to elements of form-->
+        {% bootstrap_form form %}
+
+        <!--bootstrap template tag, styles button bootstrap style-->
+        {% buttons %}
+            <button name="submit" class="btn btn-primary">Log in</button>
+        {% endbuttons %}
+
+        <!--redirects user back to home page once form is submitted-->
+        <input type="hidden" name="next"
+               value="{% url 'learning_logs:index' %}" />
+    </form>
+{% endblock content %}

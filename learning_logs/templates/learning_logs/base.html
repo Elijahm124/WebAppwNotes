@@ -1,0 +1,131 @@
+<!--load template tags for bootstrap
+basically importing bootstrap to this file
+    -->
+{% load bootstrap4 %}
+
+<!--declare file as HTML
+file is written in english
+    -->
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- head and body are 2 parts of HTML file-->
+<!-- head of HTML file doesnt display anything for page-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+        shrink-to-fit=no">
+
+    <!-- title indicates what is shown in tab bar, when website is open-->
+    <title>Learning Log</title>
+
+    <!-- load template tags for bootstrap
+    css is style files
+    javscript is for interactive behavior with page-->
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery="full" %}
+
+    <!-- end of head part-->
+</head>
+
+<!-- body is what is displayed on page-->
+<body>
+
+<!-- navigation bar is top or side of page with tabs(links) to other pages
+other pages are usually within same site-->
+
+    <!-- <nav indicates navigation links section
+    navbar inidcates navigation bar itself
+    navbar-expand-md indicates size of bar
+    light means bar and background are of light shade
+    mg creates some space between navbar and rest of page -->
+    <nav class="navbar navbar-expand-md navbar-light bg-light mb-4 border">
+
+        <!--first link/aspect of navigation bar
+         Name is Learning Log with link to home page/index
+         navbar-brand makes it stand out more than other links-->
+        <a class="navbar-brand" href="{% url 'learning_logs:index' %}">
+            Learning Log</a>
+
+        <!--collapse means nav bar will collapse when navbar is too narrow
+        if browser window is too narrow, button replaces navbar
+         user can click on button and then navbar would drop down veritcally
+         -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target = "#navbarCollapse" aria-controls="navbarCollapse"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span></button>
+
+        <!--new section of navbar separate from first Learning Log link
+        new section defined by division(div)
+        this section will be what's collapsed
+        division also takes up entire block (width) of space-->
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+
+            <!--define new set of links
+            links are automatically pushed left-->
+            <ul class="navbar-nav mr-auto">
+
+                <!--defines item in set as a link
+                the link is for Topics page-->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'learning_logs:topics' %}">
+                        Topics</a></li>
+            </ul>
+
+            <!--new set of links pushed to right of page-->
+            <ul class="navbar-nav ml-auto">
+
+                <!--separates whats shown if user is logged in or not-->
+                {% if user.is_authenticated %}
+
+                <!--display text element span that says hello
+                span is opposite from div in that it is apart of a line/block-->
+                    <li class="nav-item">
+                        <span class="navbar-text">Hello, {{ user.username }}.</span>
+                    </li>
+
+                <!--These links are same as Topics link above, item in a set
+                take users to page if clicked on-->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'users:logout' %}">Log out</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'users:register' %}">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'users:login' %}">Log in</a></li>
+                {% endif %}
+            </ul>
+
+<!--end of division element that would collapse-->
+        </div>
+
+  <!--end of navigation bar-->
+    </nav>
+
+<!--define main content of page
+container groups elements of page like navbar, header, footer-->
+<main role="main" class="container">
+
+    <!--page_header division block, Title for pages
+    pb specfies padding or space content of block and block itself
+    mb specifeis space between blocks, we specify space only at bottom -->
+    <div class="pb-2 mb-2 border-bottom">
+
+        <!--content of this title block,
+        will be filled in by specifics (title) of other pages -->
+        {% block page_header %}{% endblock page_header %}
+    </div>
+
+    <!--division block for content of page itself, not title-->
+    <div>
+
+        <!--will be filled in by specifics (data) of other pages-->
+        {% block content %}{% endblock content %}
+    </div>
+</main>
+
+</body>
+</html>

@@ -1,5 +1,5 @@
 from django.db import models
-# Create your models here.
+from django.contrib.auth.models import User
 
 #define a model(class)
 #tells us what to do with data
@@ -17,6 +17,12 @@ class Topic(models.Model):
     # time when user adds a topic
     date_added = models.DateTimeField(auto_now_add=True)
 
+    #attribute of owner, which has relationship with topic
+    #ForeignKey = User(owner) is key, Topics are values
+    #User is default model
+    #CASCADE = if user is deleted, so are topics
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+
     #method that converts object to string automatically
     def __str__(self):
         """Return a string representation of the model"""
@@ -28,8 +34,8 @@ class Entry(models.Model):
     """Something specific learned about a topic"""
 
     #topic attribute is reference to Topic
-    #foreign key is reference to other record in database
-    #connects entry to topic
+    #foreign key connects each entry to specfic topic
+    #each topic has ID/key
     #Cascade argument means that when a topic is deleted so
     # are all entries
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
@@ -42,6 +48,7 @@ class Entry(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
 
     #nested class
+    #Meta holds extra info for models
     #use Entries when referriing to more than one entry
     class Meta:
         verbose_name_plural = "entries"

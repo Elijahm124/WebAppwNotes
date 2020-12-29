@@ -1,0 +1,45 @@
+<!--THIS HTML FILE IS NO LONGER IN USE
+IT IS REPLACED BY TOPIC.HTML BUT HAS OG NOTES-->
+
+{% extends 'learning_logs/base.html' %}
+
+{% block content %}
+
+<!--show current topic displayed-->
+<!--context value for topic key-->
+  <p>Topic: {{ topic }}</p>
+
+  <p>Entries:</p>
+  <p>
+    <a href="{% url 'learning_logs:new_entry' topic.id %}">Add new entry</a>
+  </p>
+
+<!--bulleted list for entries-->
+  <ul>
+
+<!--loop thru entries-->
+  {% for entry in entries %}
+
+   <!--list items, date added and text for entry-->
+    <li>
+
+        <!-- value of date_added attribute
+        (|) filter mods value to specific format, specific way to show date-->
+      <p>{{ entry.date_added|date:'M d, Y H:i' }}</p>
+
+        <!--display text
+        (|) filter breaks lines accordingly-->
+      <p>{{ entry.text|linebreaks }}</p>
+
+      <!--link for each entry to be able to edit entry
+       entry id matches entry object to url-->
+      <p>
+        <a href="{% url 'learning_logs:edit_entry' entry.id %}">Edit entry</a>
+      </p>
+    </li>
+  {% empty %}
+    <li>There are no entries for this topic yet.</li>
+  {% endfor %}
+  </ul>
+
+{% endblock content %}

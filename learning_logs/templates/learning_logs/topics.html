@@ -1,0 +1,51 @@
+{% extends "learning_logs/base.html" %}
+
+<!--We don't need a load bootstrap tag cuz we're not using any bootstrap
+template tags like "buttons"-->
+
+<!--We moved Topics title to page_header block instead of content
+also changed it from basic p text to h1-->
+{% block page_header %}
+    <h1>Topics</h1>
+{% endblock page_header %}
+
+{% block content %}
+
+
+
+<!--ul denotes unordered bulleted list -->
+    <ul>
+
+        <!--for loop template tag
+        loops thru topics in context dict-->
+        {% for topic in topics %}
+
+        <!--double braces means to print variable-->
+        <!--li means its a list item,
+        each topic is bulleted item in list-->
+            <li><h3>
+                <a href="{% url 'learning_logs:topic' topic.id %}">{{topic}}</a>
+
+         <!--make topic size a little larger with h3-->
+            </h3></li>
+
+        <!--empty template tag
+        if empty list print no topics... statement-->
+        {% empty %}
+
+        <!--increase size of statement to h3-->
+            <li><h3>No topics have been added yet.</h3></li>
+
+        <!--mandatory for loop closure-->
+        {% endfor %}
+    </ul>
+
+<!--link to new_topic page on topics page
+ Add a new topic is what shows and
+ if clicked takes us to new_topic url then view then template-->
+<h3><a href="{% url 'learning_logs:new_topic' %}">
+
+    <!--Increase size of add a new topic link to h3-->
+    Add a new topic</a></h3>
+
+{% endblock content %}

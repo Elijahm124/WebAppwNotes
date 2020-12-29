@@ -1,0 +1,34 @@
+<!--THIS TEMPLATE IS NOT IN USE ANYMORE-->
+
+
+<!--inherit base page
+inheritance can be between apps-->
+{% extends "learning_logs/base.html" %}
+
+{% block content %}
+
+<!-- if there is an error, we display the message
+form error cuz user is entering data-->
+    {% if form.errors %}
+        <p>Your username and password didn't match. Please try again.</p>
+    {% endif %}
+
+<!--send form to login url which will then go to login view
+ form and view for login have been created by default django
+ It will be submitted as a post which means it needs to be processed-->
+    <form method="post" action="{% url 'users:login' %}">
+
+     <!-- cross site registration forgery-->
+        {% csrf_token %}
+
+    <!-- display defualt form (text box for data)-->
+        {{ form.as_p }}
+
+        <!-- if you click the button, form will be posted to login view-->
+        <button name="submit">Log in</button>
+
+        <!--redirects user back to home page once form is submitted-->
+        <input type="hidden" name="next"
+               value="{% url 'learning_logs:index' %}" />
+    </form>
+{% endblock content %}

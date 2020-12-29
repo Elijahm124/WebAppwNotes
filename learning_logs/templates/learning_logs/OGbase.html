@@ -1,0 +1,47 @@
+<!-- This is the base template
+contains repeated webpage elements
+other pages inherit from this-->
+
+<!-- {%} is link generator, template tag
+    specific template tag generates URL which matches "index"
+    basically when you click the link, it takes you to OGindex.html
+   file is in learning_logs/urls.py,
+   learning_logs: is from appname variable
+    -->
+
+<!-- THIS HTML ISNT USED, REPLACED BY BASE.MTML
+IT HAS OG NOTES FOR STARTING A BASE HTML FILE
+    -->
+
+
+<p>
+    <a href="{% url 'learning_logs:index' %}">Learning Log</a> -
+
+    <!--every page now has topics link-->
+    <!--generate link matching URL pattern with topics-->
+    <a href="{% url 'learning_logs:topics' %}">Topics</a> -
+
+    <!-- if statement for if person is already logged in-->
+    {% if user.is_authenticated %}
+
+        <!-- user is automatically created by django-->
+        Hello, {{ user.username }}.
+
+        <!-- link for loging out, default logout view/URL is called-->
+        <a href="{% url 'users:logout' %}">Log out</a>
+
+    <!-- if not, user is not logged in-->
+    {% else %}
+        <!--display link to register page-->
+        <a href="{% url 'users:register' %}">Register</a> -
+
+        <!-- users:login is default loging URL by django-->
+        <a href="{% url 'users:login' %}">Log in</a>
+    {% endif %}
+</p>
+
+
+<!-- block tags, used by child templates...
+inheritors, will define content between content blocks
+    -->
+{% block content %}{% endblock content %}

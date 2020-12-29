@@ -1,0 +1,27 @@
+{% extends "learning_logs/base.html" %}
+
+{% block content %}
+    <p>Add a new topic:</p>
+
+<!--define HTML form
+ action tells browser where to send submitted data, new_topic view
+ method tells browser to send it as a POST-->
+    <form action="{% url 'learning_logs:new_topic' %}" method='post'>
+
+<!--cross-site request forgery,
+ prevent unauthorized attacks-->
+        {% csrf_token %}
+
+<!--display form in paragraph format
+ displays text box for info to be submitted
+ "form" is variable form from new_topic function
+ "form" is blank instance of Topic-->
+        {{ form.as_p }}
+
+        <!-- define a submit button for forms
+        name defines what button does
+        Add topic is what is displayed on screen-->
+        <button name="submit">Add topic</button>
+    </form>
+
+{% endblock content %}

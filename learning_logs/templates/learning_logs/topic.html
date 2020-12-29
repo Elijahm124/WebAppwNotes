@@ -1,0 +1,41 @@
+{% extends 'learning_logs/base.html' %}
+
+<!--specfic Topic is now in page header block with h3 size-->
+{% block page_header %}
+    <h3>{{ topic }}</h3>
+{% endblock page_header %}
+
+{% block content %}
+  <p>
+    <a href="{% url 'learning_logs:new_entry' topic.id %}">Add new entry</a>
+  </p>
+
+<!--replace ul and li which ordered the elements in a list
+each element is now a division element-->
+  {% for entry in entries %}
+
+<!--card has two sub elements-->
+    <div class="card mb-3">
+
+        <!--card header contains date and link
+        h4 means its 4th level size
+        small means edit entry link is made smaller relative to date added-->
+        <h4 class="card-header">
+            {{ entry.date_added|date:'M d, Y H:i' }}
+            <small><a href="{% url 'learning_logs:edit_entry' entry.id %}">
+                edit entry</a></small>
+        </h4>
+
+        <!--2nd element is body which is also a division element
+        places entries in a simple box-->
+        <div class="card-body">
+            {{ entry.text|linebreaks }}
+        </div>
+    </div>
+
+  {% empty %}
+    <p>There are no entries for this topic yet.</p>
+  {% endfor %}
+
+
+{% endblock content %}

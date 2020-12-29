@@ -36,6 +36,15 @@ INSTALLED_APPS = [
     #created and installed by me
     "learning_logs",
 
+    #users app is separate from learning_logs app, still within project
+    "users",
+
+#Third party apps
+    #not created by me or default django app, downloaded in shell
+    #this app is a styling app for the webpages
+    #it has templates for pages
+    "bootstrap4",
+
     #default django apps
     'django.contrib.admin',
     'django.contrib.auth',
@@ -124,3 +133,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#My settings
+
+#this is here cuz when a user is not authorized(logged in), they're...
+#redirected to login page
+#this code works with @login_required as it specifies login page location
+LOGIN_URL = "users:login"
+
+#Heroku settings
+#after importing all the necessary tools for deployment to heroku
+#define specific settings for heroku environment
+import django_on_heroku
+
+#call settings function, modify settings that need specific values
+django_on_heroku.settings(locals())

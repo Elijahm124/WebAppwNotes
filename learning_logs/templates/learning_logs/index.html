@@ -1,0 +1,32 @@
+{% extends "learning_logs/base.html" %}
+
+<!--Home page
+We're only filling in content for the page header part of base
+We're not doing anything with the content part of base-->
+{% block page_header %}
+
+<!--division element defined as a jumbotron
+jumbotron is specific bootstrp selector
+everything in block is element apart of jumbotron-->
+    <div class="jumbotron">
+
+        <!--h1 means first level/main header
+        display-3 is specific style for text
+        Track your learning is text-->
+        <h1 class="display-3">Track your learning.</h1>
+
+        <!--lead is also specific style for text
+        paragraph is basic text format-->
+        <p class="lead">Make your own Learning Log, and keep a list of
+        the topics you're learning about. Whenever you learn something
+        new about a topic, make an entry summarizing what you've learned.</p>
+
+        <!--this part is a button that says register
+        a indicates hyperlink which means it will take us to another page
+        href is always part of <a as desitnation link
+        btn-lg and primary make it big and blue
+        &raquo creates two arros next to "Register"-->
+        <a class="btn btn-lg btn-primary" href="{% url 'users:register' %}"
+           role=button">Register &raquo;</a>
+    </div>
+{% endblock page_header %}
