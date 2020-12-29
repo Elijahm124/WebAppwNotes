@@ -1,1 +1,1 @@
-web: gunicorn WebAppwNotes.wgsi --log-file -
+web: gunicorn learning_log.wsgi --log-file -
