@@ -23,8 +23,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '*og6dy6lhz=7k_$%ccere9z)htf)*0q9k#b@^*)-%rm87ar+@3'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -148,3 +146,13 @@ import django_on_heroku
 
 #call settings function, modify settings that need specific values
 django_on_heroku.settings(locals())
+
+#deleted DEBUG = True when deploying to server
+#DEBUG provides messages when errors occur,
+#   bad when used for live server
+#Environment variable is value for specific environment
+#os.environ.get() checks if value matches variable
+if os.environ.get("DEBUG") == "TRUE":
+    DEBUG = True
+elif os.environ.get("DEBUG") == "FALSE":
+    DEBUG = False
