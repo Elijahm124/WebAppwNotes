@@ -3,7 +3,7 @@
 
 #render function gives response based on data from view
 #redirect function redirects user to specific page(view)
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 #this function necessitates that a user is logged in to view the page
 #each function represents a view for a page so its before a function
@@ -59,9 +59,11 @@ def topics(request):
 #topic id accepts topic_id value integer from urls.py
 @login_required()
 def topic(request, topic_id):
+    """Show a single topic and all its entries"""
 
-    #.get() retrieves topics
-    topic =Topic.objects.get(id = topic_id)
+    #Topic.objects.get() retrieves topics
+    #replaced by get_object_or_404
+    topic = get_object_or_404(Topic, id = topic_id)
 
     # Make sure topic belongs to current user
     # although topics attribute matches a user to their topics...
