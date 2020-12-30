@@ -23,6 +23,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '*og6dy6lhz=7k_$%ccere9z)htf)*0q9k#b@^*)-%rm87ar+@3'
 
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -67,7 +69,7 @@ ROOT_URLCONF = 'learning_log.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -147,7 +149,7 @@ import django_on_heroku
 #call settings function, modify settings that need specific values
 django_on_heroku.settings(locals())
 
-#deleted DEBUG = True when deploying to server
+
 #DEBUG provides messages when errors occur,
 #   bad when used for live server
 #Environment variable is value for specific environment
