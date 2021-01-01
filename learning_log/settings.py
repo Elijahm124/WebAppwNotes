@@ -24,7 +24,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '*og6dy6lhz=7k_$%ccere9z)htf)*0q9k#b@^*)-%rm87ar+@3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+#DEBUG provides messages when errors occur,
+#this is locally cuz heroku Debugging settings are handled below
+#could be true or false (True to see errors locally)
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -69,6 +72,8 @@ ROOT_URLCONF = 'learning_log.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+
+        #tells django to look in root template directory for error templates
         'DIRS': [os.path.join(BASE_DIR, "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -150,10 +155,11 @@ import django_on_heroku
 django_on_heroku.settings(locals())
 
 
-#DEBUG provides messages when errors occur,
-#   bad when used for live server
+#When True, provides debug messages when errors occur
+#too much info when enabled on live server
 #Environment variable is value for specific environment
-#os.environ.get() checks if value matches variable
+    #DEBUG is variable based on either TRUE or FALSE values
+#os.environ.get() retrieves value for key (environment variable)
 if os.environ.get("DEBUG") == "TRUE":
     DEBUG = True
 elif os.environ.get("DEBUG") == "FALSE":
